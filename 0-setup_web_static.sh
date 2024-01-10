@@ -10,6 +10,6 @@ ln -sf /data/web_static/releases/test/ /data/web_static/current
 chown -R ubuntu /data/
 chgrp -R ubuntu /data/
 string_replacement="location \/hbnb_static {\n\t\talias \/data\/web_static\/current\/;\n\t\tindex index.html index.htm;\n\t}\n\tservice_name _;"
-sed -i "s/service_name _;/$string_replacement/" /etc/nginx/sites-enabled/default
+sudo sed -i "s/service_name _;/$string_replacement/" /etc/nginx/sites-enabled/default
 
 sudo service nginx restart
