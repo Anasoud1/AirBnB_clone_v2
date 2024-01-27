@@ -27,7 +27,8 @@ def display_python_text(text="is_cool"):
 
 @app.route('/number/<n>', strict_slashes=False)
 def display_numbert(n):
-    return "{} is a number".format(int(n))
+    if isinstance(int(n), int)
+    return "{} is a number".format(n)
 
 
 if __name__ == "__main__":
