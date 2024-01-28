@@ -1,16 +1,15 @@
 #!/usr/bin/python3
-""" this module contains a script that starts a Flask web application
-    the web application must be listening on 0.0.0.0, port 5000
-    Routes: - /states_list """
-from models import storage
+"""starts a Flask web application"""
+
 from flask import Flask, render_template
+from models import *
+from models import storage
 app = Flask(__name__)
 
 
 @app.route('/states', strict_slashes=False)
 @app.route('/states/<state_id>', strict_slashes=False)
-def states_cities(id):
-    """ display HTML page with list of states """
+def states(state_id=None):
     states = storage.all("State")
     if state_id is not None:
         state_id = 'State.' + state_id
@@ -18,10 +17,9 @@ def states_cities(id):
 
 
 @app.teardown_appcontext
-def remove_SQLalc_session(exception):
-    """ close storage when tear down is executed """
+def teardown_db(exception):
     storage.close()
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port='5000')
