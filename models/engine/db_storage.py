@@ -9,7 +9,7 @@ class DBStorage:
     """This class manages storage of hbnb models in database"""
     __engine = None
     __session = None
-    
+
     def __init__(self):
         """DBStorage constructor"""
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'
@@ -55,7 +55,7 @@ class DBStorage:
             objs.extend(self.__session.query(Review).all())
             objs.extend(self.__session.query(Amenity).all())
         else:
-            if type(cls) == str:
+            if isinstance(cls, str):
                 cls = eval(cls)
                 objs = self.__session.query(cls)
         return {"{}.{}".format(type(o).__name__, o.id): o for o in objs}
@@ -84,11 +84,11 @@ class DBStorage:
         from models.review import Review
 
         Base.metadata.create_all(self.__engine)
-        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        session_factory = sessionmaker(bind=self.__engine,
+                                       expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session()
 
     def close(self):
         """call remove() method"""
         self.__session.remove()
-
