@@ -57,7 +57,7 @@ class DBStorage:
         else:
             if isinstance(cls, str):
                 cls = eval(cls)
-                objs = self.__session.query(cls)
+            objs = self.__session.query(cls)
         return {"{}.{}".format(type(o).__name__, o.id): o for o in objs}
 
     def new(self, obj):
@@ -91,4 +91,4 @@ class DBStorage:
 
     def close(self):
         """call remove() method"""
-        self.__session.remove()
+        self.__session.close()
