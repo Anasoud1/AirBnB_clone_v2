@@ -11,9 +11,10 @@
 			<UL>
 			{% for city in obj.cities|sort(attribute='name')%}
 			<LI>{{ city.id }}: <B>{{ city.name }}</B></li>
+			{% endfor %}
 			</UL>
 		</LI>
-		{% endfor%}
+		{% endfor %}
 	</UL>
     </BODY>
 </HTML>
