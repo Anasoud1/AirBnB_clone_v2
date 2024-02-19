@@ -24,6 +24,34 @@ class FileStorage:
             if k in self.__objects:
                 del self.__objects[k]
 
+    def get(self, cls, id):
+        """get method"""
+        from models.user import User
+        from models.state import State
+        from models.city import City
+        from models.amenity import Amenity
+        from models.place import Place
+        from models.review import Review
+
+        list_obj = list(self.all(cls).values())
+        for obj in list_obj:
+            if id == obj.id:
+                return obj
+        return None
+
+    def count(self, cls=None):
+        """count method"""
+        from models.user import User
+        from models.state import State
+        from models.city import City
+        from models.amenity import Amenity
+        from models.place import Place
+        from models.review import Review
+
+        if cls:
+            return len(list(self.all(cls).values()))
+        return  len(list(self.all().values()))
+
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage"""
         d = {}

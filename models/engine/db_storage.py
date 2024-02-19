@@ -22,6 +22,35 @@ class DBStorage:
         if getenv('HBNB_ENV') == 'test':
             metadata.drop_all(bind=self.__engine)
 
+    def get(self, cls, id):
+        """get method"""
+        from models.user import User
+        from models.state import State
+        from models.city import City
+        from models.amenity import Amenity
+        from models.place import Place
+        from models.review import Review
+
+        list_obj = list(self.all(cls).values())
+        for obj in list_obj:
+            if id == obj.id:
+                return obj
+        return None
+
+    def count(self, cls=None):
+        """count method"""
+        from models.user import User
+        from models.state import State
+        from models.city import City
+        from models.amenity import Amenity
+        from models.place import Place
+        from models.review import Review
+
+        if cls:
+            return len(list(self.all(cls).values()))
+        return  len(list(self.all().values()))
+
+    
     def all(self, cls=None):
         """ Returns the entire dictionary """
         from models.user import User
